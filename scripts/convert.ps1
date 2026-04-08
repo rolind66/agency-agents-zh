@@ -335,8 +335,8 @@ function Run-Conversions {
     foreach ($dir in $AgentDirs) {
         $dirPath = Join-Path $RepoRoot $dir
         if (-not (Test-Path $dirPath)) { continue }
-        Get-ChildItem -Path $dirPath -Filter "*.md" -Recurse | Sort-Object FullName | ForEach-Object {
-            $lines = Get-Content $_.FullName -Encoding UTF8
+        Get-ChildItem -Path $dirPath -Filter "*.md" -Recurse | ForEach-Object {
+            $lines = Get-Content -Path $_.FullName -Encoding UTF8
             if ($lines.Count -eq 0 -or $lines[0] -ne "---") { return }
             $name = Get-Field "name" $lines
             if (-not $name) { return }
