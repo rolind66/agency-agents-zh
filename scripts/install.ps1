@@ -20,6 +20,7 @@
 #   qwen         — 复制到 .qwen\agents\（项目级）
 #   codex        — 复制到 .codex\agents\（项目级）
 #   deerflow     — 复制到 DeerFlow custom skills 目录（项目级）
+#   workbuddy    — 复制到 %USERPROFILE%\.workbuddy\skills\（全局）
 #   kiro         — 复制到 %USERPROFILE%\.kiro\agents\（全局）
 #   all          — 安装所有已检测到的工具（默认）
 
@@ -39,7 +40,7 @@ $Home_        = $env:USERPROFILE
 
 $AllTools = @(
     "claude-code","copilot","antigravity","gemini-cli","opencode","openclaw",
-    "cursor","trae","aider","windsurf","qwen","codex","deerflow","kiro"
+    "cursor","trae","aider","windsurf","qwen","codex","deerflow","workbuddy","kiro"
 )
 
 # --- 颜色输出 ---
@@ -91,6 +92,8 @@ function Detect-Tool {
         "codex"       { Get-Command codex -ErrorAction SilentlyContinue }
         "deerflow"    { (Get-Command deerflow -ErrorAction SilentlyContinue) -or
                         (Test-Path (Join-Path $Home_ ".deerflow")) }
+        "workbuddy"   { (Get-Command workbuddy -ErrorAction SilentlyContinue) -or
+                        (Test-Path (Join-Path $Home_ ".workbuddy")) }
         "kiro"        { (Get-Command kiro -ErrorAction SilentlyContinue) -or
                         (Get-Command kiro-cli -ErrorAction SilentlyContinue) -or
                         (Test-Path (Join-Path $Home_ ".kiro")) }
@@ -114,6 +117,7 @@ function Get-ToolLabel {
         "qwen"        { "Qwen Code      (.qwen\agents)" }
         "codex"       { "Codex CLI      (.codex\agents)" }
         "deerflow"    { "DeerFlow       (skills\custom)" }
+        "workbuddy"   { "WorkBuddy      (%USERPROFILE%\.workbuddy\skills)" }
         "kiro"        { "Kiro           (%USERPROFILE%\.kiro\agents)" }
         default       { $ToolName }
     }
@@ -307,6 +311,23 @@ function Install-DeerFlow {
     Write-Warn "DeerFlow: 设置 `$env:DEERFLOW_SKILLS_DIR 可自定义路径。"
 }
 
+function Install-WorkBuddy {
+    $src  = Join-Path $Integrations "workbuddy"
+    $dest = Join-Path $Home_ ".workbuddy\skills"
+    if (-not (Test-Path $src)) { Write-Err "integrations\workbuddy 不存在，请先运行 convert.ps1 -Tool workbuddy"; return }
+    $count = 0
+    Get-ChildItem -Path $src -Directory | ForEach-Object {
+        $skillFile = Join-Path $_.FullName "SKILL.md"
+        if (Test-Path $skillFile) {
+            $skillDest = Join-Path $dest $_.Name
+            New-Item -ItemType Directory -Force -Path $skillDest | Out-Null
+            Copy-Item $skillFile -Destination $skillDest
+            $count++
+        }
+    }
+    Write-OK "WorkBuddy: $count 个 skills -> $dest"
+}
+
 function Install-Kiro {
     $src  = Join-Path $Integrations "kiro"
     $dest = Join-Path $Home_ ".kiro\agents"
@@ -337,6 +358,7 @@ function Install-Tool {
         "qwen"        { Install-Qwen       }
         "codex"       { Install-Codex      }
         "deerflow"    { Install-DeerFlow   }
+        "workbuddy"   { Install-WorkBuddy  }
         "kiro"        { Install-Kiro       }
     }
 }

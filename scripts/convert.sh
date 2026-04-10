@@ -20,6 +20,7 @@
 #   qwen         — Qwen Code SubAgent 文件 (~/.qwen/agents/*.md)
 #   codex        — OpenAI Codex CLI agent 文件 (.codex/agents/*.toml)
 #   deerflow     — DeerFlow 2.0 custom skill 文件 (skills/custom/<slug>/SKILL.md)
+#   workbuddy    — WorkBuddy skill 文件 (~/.workbuddy/skills/<slug>/SKILL.md)
 #   kiro         — Kiro agent JSON 文件 (.kiro/agents/*.json + prompts/*.md)
 #   all          — 所有工具（默认）
 #
@@ -414,6 +415,29 @@ ${body}
 HEREDOC
 }
 
+convert_workbuddy() {
+  local file="$1"
+  local name description slug outdir outfile body
+
+  name="$(get_field "name" "$file")"
+  description="$(get_field "description" "$file")"
+  slug="$(slugify_from_file "$file")"
+  body="$(get_body "$file")"
+
+  outdir="$OUT_DIR/workbuddy/$slug"
+  outfile="$outdir/SKILL.md"
+  mkdir -p "$outdir"
+
+  cat > "$outfile" <<HEREDOC
+---
+name: ${slug}
+description: ${description}
+allowed-tools: Read Write Edit Bash Grep Glob
+---
+${body}
+HEREDOC
+}
+
 convert_kiro() {
   local file="$1"
   local name description slug body
@@ -541,6 +565,7 @@ run_conversions() {
         qwen)        convert_qwen        "$file" ;;
         codex)       convert_codex       "$file" ;;
         deerflow)    convert_deerflow    "$file" ;;
+        workbuddy)   convert_workbuddy   "$file" ;;
         kiro)        convert_kiro        "$file" ;;
         aider)       accumulate_aider    "$file" ;;
         windsurf)    accumulate_windsurf "$file" ;;
@@ -568,7 +593,7 @@ main() {
     esac
   done
 
-  local valid_tools=("antigravity" "gemini-cli" "opencode" "cursor" "trae" "aider" "windsurf" "openclaw" "qwen" "codex" "deerflow" "kiro" "all")
+  local valid_tools=("antigravity" "gemini-cli" "opencode" "cursor" "trae" "aider" "windsurf" "openclaw" "qwen" "codex" "deerflow" "workbuddy" "kiro" "all")
   local valid=false
   for t in "${valid_tools[@]}"; do [[ "$t" == "$tool" ]] && valid=true && break; done
   if ! $valid; then
@@ -584,7 +609,7 @@ main() {
 
   local tools_to_run=()
   if [[ "$tool" == "all" ]]; then
-    tools_to_run=("antigravity" "gemini-cli" "opencode" "cursor" "trae" "aider" "windsurf" "openclaw" "qwen" "codex" "deerflow" "kiro")
+    tools_to_run=("antigravity" "gemini-cli" "opencode" "cursor" "trae" "aider" "windsurf" "openclaw" "qwen" "codex" "deerflow" "workbuddy" "kiro")
   else
     tools_to_run=("$tool")
   fi

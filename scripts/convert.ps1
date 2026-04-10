@@ -18,6 +18,7 @@
 #   qwen         — Qwen Code SubAgent 文件
 #   codex        — OpenAI Codex CLI agent 文件
 #   deerflow     — DeerFlow 2.0 custom skill 文件
+#   workbuddy    — WorkBuddy skill 文件
 #   kiro         — Kiro agent JSON 文件
 #   all          — 所有工具（默认）
 
@@ -43,7 +44,7 @@ $AgentDirs = @(
 )
 
 $ValidTools = @("antigravity","gemini-cli","opencode","cursor","trae","aider",
-                "windsurf","openclaw","qwen","codex","deerflow","kiro","all")
+                "windsurf","openclaw","qwen","codex","deerflow","workbuddy","kiro","all")
 
 # --- 颜色输出 ---
 function Write-OK   { param($msg) Write-Host "[OK]  $msg" -ForegroundColor Green }
@@ -293,6 +294,23 @@ $body
 "@ | Set-Content -Path (Join-Path $outDir "SKILL.md") -Encoding UTF8
 }
 
+function Convert-WorkBuddy {
+    param([string]$File, [string[]]$Lines)
+    $description = Get-Field "description" $Lines
+    $slug        = Get-Slug $File
+    $body        = Get-Body $Lines
+    $outDir      = Join-Path $OutDir "workbuddy\$slug"
+    New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+    @"
+---
+name: $slug
+description: $description
+allowed-tools: Read Write Edit Bash Grep Glob
+---
+$body
+"@ | Set-Content -Path (Join-Path $outDir "SKILL.md") -Encoding UTF8
+}
+
 function Convert-Kiro {
     param([string]$File, [string[]]$Lines)
     $description = Get-Field "description" $Lines
@@ -352,6 +370,7 @@ function Run-Conversions {
                 "qwen"        { Convert-Qwen        $filePath $lines }
                 "codex"       { Convert-Codex       $filePath $lines }
                 "deerflow"    { Convert-DeerFlow    $filePath $lines }
+                "workbuddy"   { Convert-WorkBuddy   $filePath $lines }
                 "kiro"        { Convert-Kiro        $filePath $lines }
                 "aider"       { Accumulate-Aider    $filePath $lines }
                 "windsurf"    { Accumulate-Windsurf $filePath $lines }

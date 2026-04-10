@@ -2,7 +2,7 @@
 
 🌐 [簡體中文](README.md) | **繁體中文** | [English (upstream)](https://github.com/msitarzewski/agency-agents)
 
-> **193 個即插即用的 AI 專家角色** — 覆蓋工程、設計、行銷、產品、遊戲、安全、金融等 18 個部門。不是通用提示詞範本，每個智能體都有獨立的人設、專業流程和可交付成果。支援 Claude Code / Cursor / Copilot 等 14 種 AI 程式設計工具。
+> **193 個即插即用的 AI 專家角色** — 覆蓋工程、設計、行銷、產品、遊戲、安全、金融等 18 個部門。不是通用提示詞範本，每個智能體都有獨立的人設、專業流程和可交付成果。支援 Claude Code / Cursor / Copilot 等 15 種 AI 程式設計工具。
 
 [agency-agents](https://github.com/msitarzewski/agency-agents) 的中文社群版。在完整翻譯上游的基礎上，新增了 46 個中國市場原創智能體（小紅書、抖音、微信、B站、飛書、釘釘等平台運營，以及跨境電商、政務ToG、醫療合規等垂直領域）。
 
@@ -14,7 +14,7 @@
 
 | 🤖 AI 智能體 | 🌏 英文版翻譯 | 🇨🇳 中國市場原創 | 🧠 支援工具 | 🏢 部門 |
 |:---:|:---:|:---:|:---:|:---:|
-| **193** | **147** | **46** | **14 種** | **18 個** |
+| **193** | **147** | **46** | **15 種** | **18 個** |
 
 ---
 
@@ -28,7 +28,7 @@
 
 ### 方式一：一鍵安裝到你的 AI 工具
 
-支援 **14 種主流 AI 程式設計工具**，一條命令搞定：
+支援 **15 種主流 AI 程式設計工具**，一條命令搞定：
 
 ```bash
 # 自動檢測已安裝的工具，一鍵安裝
@@ -49,6 +49,7 @@
 ./scripts/install.sh --tool qwen           # Qwen Code
 ./scripts/install.sh --tool codex          # Codex CLI
 ./scripts/install.sh --tool deerflow       # DeerFlow 2.0 (ByteDance)
+./scripts/install.sh --tool workbuddy      # WorkBuddy (Tencent)
 ```
 
 > Claude Code 和 GitHub Copilot 可直接安裝；其他工具需先執行 `./scripts/convert.sh` 轉換格式。
@@ -440,7 +441,7 @@ cp -r marketing/*.md ~/.claude/agents/
 
 ## 工具整合
 
-支援 **14 種主流 AI 程式設計工具**，透過 `scripts/` 目錄下的指令碼實現格式轉換和一鍵安裝。
+支援 **15 種主流 AI 程式設計工具**，透過 `scripts/` 目錄下的指令碼實現格式轉換和一鍵安裝。
 
 ### 支援的工具
 
@@ -459,6 +460,7 @@ cp -r marketing/*.md ~/.claude/agents/
 | **Aider** | `CONVENTIONS.md` | 專案級，需轉換 |
 | **Windsurf** | `.windsurfrules` | 專案級，需轉換 |
 | **Codex CLI** | `.codex/agents/` | 專案級，需轉換 |
+| **WorkBuddy** (騰訊) | `~/.workbuddy/skills/` | 全局，需轉換 |
 | **DeerFlow 2.0** (位元組跳動) | `skills/custom/` | 專案級，需轉換 |
 
 ### 使用方法
@@ -700,6 +702,19 @@ Amazon 的 Spec 驅動 AI IDE，基於 Claude 模型。每個智能體轉換為 
 ```bash
 kiro-cli --agent engineering-frontend-developer
 ```
+</details>
+
+<details>
+<summary><strong>WorkBuddy (騰訊)</strong></summary>
+
+騰訊推出的全場景 AI 桌面智能體，相容 OpenClaw 技能，支援多模型切換。每個智能體轉換為 `SKILL.md` 技能檔案，安裝到 `~/.workbuddy/skills/`（全局）。
+
+```bash
+./scripts/convert.sh --tool workbuddy
+./scripts/install.sh --tool workbuddy
+```
+
+安裝後重啟 WorkBuddy 即可在技能列表中看到所有智能體。
 </details>
 
 <details>

@@ -22,6 +22,7 @@
 #   qwen         -- 复制 SubAgent 到 .qwen/agents/（项目级）
 #   codex        -- 复制到 .codex/agents/（项目级）
 #   deerflow     -- 复制到 DeerFlow custom skills 目录（Docker 项目级）
+#   workbuddy    -- 复制到 ~/.workbuddy/skills/（全局）
 #   kiro         -- 复制到 ~/.kiro/agents/（全局）
 #   all          -- 安装所有已检测到的工具（默认）
 
@@ -46,7 +47,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 INTEGRATIONS="$REPO_ROOT/integrations"
 
-ALL_TOOLS=(claude-code copilot antigravity gemini-cli opencode openclaw cursor trae aider windsurf qwen codex deerflow kiro)
+ALL_TOOLS=(claude-code copilot antigravity gemini-cli opencode openclaw cursor trae aider windsurf qwen codex deerflow workbuddy kiro)
 
 # --- 用法 ---
 usage() {
@@ -76,6 +77,7 @@ detect_windsurf()     { command -v windsurf >/dev/null 2>&1 || [[ -d "${HOME}/.c
 detect_qwen()         { command -v qwen >/dev/null 2>&1 || [[ -d "${HOME}/.qwen" ]]; }
 detect_codex()        { command -v codex >/dev/null 2>&1 || [[ -d "${HOME}/.codex" ]]; }
 detect_deerflow()     { command -v deerflow >/dev/null 2>&1 || [[ -d "${HOME}/.deerflow" ]] || docker ps --format '{{.Names}}' 2>/dev/null | grep -q deerflow; }
+detect_workbuddy()    { command -v workbuddy >/dev/null 2>&1 || [[ -d "${HOME}/.workbuddy" ]]; }
 detect_kiro()         { command -v kiro >/dev/null 2>&1 || command -v kiro-cli >/dev/null 2>&1 || [[ -d "${HOME}/.kiro" ]]; }
 
 is_detected() {
@@ -93,6 +95,7 @@ is_detected() {
     qwen)        detect_qwen        ;;
     codex)       detect_codex       ;;
     deerflow)    detect_deerflow    ;;
+    workbuddy)   detect_workbuddy   ;;
     kiro)        detect_kiro        ;;
     *)           return 1 ;;
   esac
@@ -112,6 +115,7 @@ tool_label() {
     qwen)        printf "%-14s  %s" "Qwen Code"    "(~/.qwen/agents)"       ;;
     codex)       printf "%-14s  %s" "Codex CLI"    "(.codex/agents)"        ;;
     deerflow)    printf "%-14s  %s" "DeerFlow"     "(skills/custom)"        ;;
+    workbuddy)   printf "%-14s  %s" "WorkBuddy"    "(~/.workbuddy/skills)"  ;;
     kiro)        printf "%-14s  %s" "Kiro"         "(~/.kiro/agents)"       ;;
   esac
 }
@@ -357,6 +361,27 @@ install_deerflow() {
   warn "DeerFlow: 默认安装到 ./skills/custom/。设置 DEERFLOW_SKILLS_DIR 可自定义路径。"
 }
 
+install_workbuddy() {
+  local src="$INTEGRATIONS/workbuddy"
+  local dest="${HOME}/.workbuddy/skills"
+  local count=0
+
+  [[ -d "$src" ]] || { err "integrations/workbuddy 不存在。请先运行 convert.sh --tool workbuddy"; return 1; }
+
+  mkdir -p "$dest"
+
+  local d
+  while IFS= read -r -d '' d; do
+    local name; name="$(basename "$d")"
+    [[ -f "$d/SKILL.md" ]] || continue
+    mkdir -p "$dest/$name"
+    cp "$d/SKILL.md" "$dest/$name/SKILL.md"
+    (( count++ )) || true
+  done < <(find "$src" -mindepth 1 -maxdepth 1 -type d -print0)
+
+  ok "WorkBuddy: $count 个 skills -> $dest"
+}
+
 install_kiro() {
   local src="$INTEGRATIONS/kiro"
   local dest="${HOME}/.kiro/agents"
@@ -399,6 +424,7 @@ install_tool() {
     qwen)        install_qwen        ;;
     codex)       install_codex       ;;
     deerflow)    install_deerflow    ;;
+    workbuddy)   install_workbuddy   ;;
     kiro)        install_kiro        ;;
   esac
 }

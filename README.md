@@ -2,7 +2,7 @@
 
 🌐 **简体中文** | [繁體中文](README.zh-TW.md) | [English (upstream)](https://github.com/msitarzewski/agency-agents)
 
-> **193 个即插即用的 AI 专家角色** — 覆盖工程、设计、营销、产品、游戏、安全、金融等 18 个部门。不是通用提示词模板，每个智能体都有独立的人设、专业流程和可交付成果。支持 Claude Code / Cursor / Copilot 等 14 种 AI 编程工具。
+> **193 个即插即用的 AI 专家角色** — 覆盖工程、设计、营销、产品、游戏、安全、金融等 18 个部门。不是通用提示词模板，每个智能体都有独立的人设、专业流程和可交付成果。支持 Claude Code / Cursor / Copilot 等 15 种 AI 编程工具。
 
 [agency-agents](https://github.com/msitarzewski/agency-agents) 的中文社区版。在完整翻译上游的基础上，新增了 46 个中国市场原创智能体（小红书、抖音、微信、B站、飞书、钉钉等平台运营，以及跨境电商、政务ToG、医疗合规等垂直领域）。
 
@@ -15,7 +15,7 @@
 
 | 🤖 AI 智能体 | 🌏 英文版翻译 | 🇨🇳 中国市场原创 | 🧠 支持工具 | 🏢 部门 |
 |:---:|:---:|:---:|:---:|:---:|
-| **193** | **147** | **46** | **14 种** | **18 个** |
+| **193** | **147** | **46** | **15 种** | **18 个** |
 
 ---
 
@@ -48,7 +48,7 @@ npx ao run workflows/story-creation.yaml --input premise='你的创意'
 
 ### 方式一：一键安装到你的 AI 工具
 
-支持 **14 种主流 AI 编程工具**，一条命令搞定：
+支持 **15 种主流 AI 编程工具**，一条命令搞定：
 
 ```bash
 # 自动检测已安装的工具，一键安装
@@ -69,6 +69,7 @@ npx ao run workflows/story-creation.yaml --input premise='你的创意'
 ./scripts/install.sh --tool qwen           # Qwen Code
 ./scripts/install.sh --tool codex          # Codex CLI
 ./scripts/install.sh --tool deerflow       # DeerFlow 2.0 (ByteDance)
+./scripts/install.sh --tool workbuddy      # WorkBuddy (Tencent)
 ```
 
 > Claude Code 和 GitHub Copilot 可直接安装；其他工具需先运行 `./scripts/convert.sh` 转换格式。
@@ -471,7 +472,7 @@ cp -r marketing/*.md ~/.claude/agents/
 
 ## 工具集成
 
-支持 **14 种主流 AI 编程工具**，通过 `scripts/` 目录下的脚本实现格式转换和一键安装。
+支持 **15 种主流 AI 编程工具**，通过 `scripts/` 目录下的脚本实现格式转换和一键安装。
 
 ### 支持的工具
 
@@ -490,6 +491,7 @@ cp -r marketing/*.md ~/.claude/agents/
 | **Aider** | `CONVENTIONS.md` | 项目级，需转换 |
 | **Windsurf** | `.windsurfrules` | 项目级，需转换 |
 | **Codex CLI** | `.codex/agents/` | 项目级，需转换 |
+| **WorkBuddy** (腾讯) | `~/.workbuddy/skills/` | 全局，需转换 |
 | **DeerFlow 2.0** (字节跳动) | `skills/custom/` | 项目级，需转换 |
 
 ### 使用方法
@@ -734,6 +736,19 @@ kiro-cli --agent engineering-frontend-developer
 </details>
 
 <details>
+<summary><strong>WorkBuddy (腾讯)</strong></summary>
+
+腾讯推出的全场景 AI 桌面智能体，兼容 OpenClaw 技能，支持多模型切换。每个智能体转换为 `SKILL.md` 技能文件，安装到 `~/.workbuddy/skills/`（全局）。
+
+```bash
+./scripts/convert.sh --tool workbuddy
+./scripts/install.sh --tool workbuddy
+```
+
+安装后重启 WorkBuddy 即可在技能列表中看到所有智能体。
+</details>
+
+<details>
 <summary><strong>DeerFlow 2.0 (字节跳动)</strong></summary>
 
 字节跳动的开源 SuperAgent 框架，支持子代理、沙箱、持久记忆。每个智能体转换为 `SKILL.md` 技能文件。
@@ -841,7 +856,7 @@ MIT License — 自由使用，商业或个人均可。
 
 <div align="center">
 
-**193 个 AI 专家角色，14 种工具支持，即装即用**
+**193 个 AI 专家角色，15 种工具支持，即装即用**
 
 [⭐ Star 本项目](https://github.com/jnMetaCode/agency-agents-zh) · [提交 Issue](https://github.com/jnMetaCode/agency-agents-zh/issues) · [贡献代码](https://github.com/jnMetaCode/agency-agents-zh/pulls)
 
