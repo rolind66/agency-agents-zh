@@ -30,7 +30,7 @@
 | 视觉叙事师 | `design/design-visual-storyteller.md` |
 | 趣味注入师 | `design/design-whimsy-injector.md` |
 
-## 🛠️ 工程部 (30)
+## 🛠️ 工程部 (33)
 
 | 中文名 | 文件路径 |
 |--------|----------|
@@ -39,6 +39,7 @@
 | 自主优化架构师 | `engineering/engineering-autonomous-optimization-architect.md` |
 | 后端架构师 | `engineering/engineering-backend-architect.md` |
 | CMS 开发者 | `engineering/engineering-cms-developer.md` |
+| 代码库入职引导工程师 | `engineering/engineering-codebase-onboarding-engineer.md` |
 | 代码审查员 | `engineering/engineering-code-reviewer.md` |
 | 数据工程师 | `engineering/engineering-data-engineer.md` |
 | 邮件智能工程师 | `engineering/engineering-email-intelligence-engineer.md` |
@@ -54,6 +55,7 @@
 | Git 工作流大师 | `engineering/engineering-git-workflow-master.md` |
 | 故障响应指挥官 | `engineering/engineering-incident-response-commander.md` |
 | IoT 方案架构师 | `engineering/engineering-iot-solution-architect.md` |
+| 最小变更工程师 | `engineering/engineering-minimal-change-engineer.md` |
 | 移动应用开发者 | `engineering/engineering-mobile-app-builder.md` |
 | 快速原型师 | `engineering/engineering-rapid-prototyper.md` |
 | 安全工程师 | `engineering/engineering-security-engineer.md` |
@@ -63,15 +65,21 @@
 | SRE (站点可靠性工程师) | `engineering/engineering-sre.md` |
 | 技术文档工程师 | `engineering/engineering-technical-writer.md` |
 | 威胁检测工程师 | `engineering/engineering-threat-detection-engineer.md` |
+| 语音 AI 集成工程师 | `engineering/engineering-voice-ai-integration-engineer.md` |
 | 微信小程序开发者 | `engineering/engineering-wechat-mini-program-developer.md` |
 
-## 🏦 金融部 (3)
+## 🏦 金融部 (8)
 
 | 中文名 | 文件路径 |
 |--------|----------|
+| 簿记与财务总监 | `finance/finance-bookkeeper-controller.md` |
+| 财务分析师 | `finance/finance-financial-analyst.md` |
 | 财务预测分析师 | `finance/finance-financial-forecaster.md` |
+| FP&A 分析师 | `finance/finance-fpa-analyst.md` |
 | 金融风控分析师 | `finance/finance-fraud-detector.md` |
+| 投资研究员 | `finance/finance-investment-researcher.md` |
 | 发票管理专家 | `finance/finance-invoice-manager.md` |
+| 税务策略师 | `finance/finance-tax-strategist.md` |
 
 ## 🎮 游戏开发部 (20)
 
@@ -112,10 +120,11 @@
 | 合同审查专家 | `legal/legal-contract-reviewer.md` |
 | 制度文件撰写专家 | `legal/legal-policy-writer.md` |
 
-## 📢 营销部 (34)
+## 📢 营销部 (35)
 
 | 中文名 | 文件路径 |
 |--------|----------|
+| 智能搜索优化师 | `marketing/marketing-agentic-search-optimizer.md` |
 | AI 引文策略师 | `marketing/marketing-ai-citation-strategist.md` |
 | 应用商店优化师 | `marketing/marketing-app-store-optimizer.md` |
 | 百度 SEO 专家 | `marketing/marketing-baidu-seo-specialist.md` |
@@ -208,7 +217,7 @@
 | XR 沉浸式开发者 | `spatial-computing/xr-immersive-developer.md` |
 | XR 界面架构师 | `spatial-computing/xr-interface-architect.md` |
 
-## 🔬 专项部 (34)
+## 🔬 专项部 (45)
 
 | 中文名 | 文件路径 |
 |--------|----------|
@@ -223,8 +232,16 @@
 | 数据整合师 | `specialized/data-consolidation-agent.md` |
 | 高考志愿填报顾问 | `specialized/gaokao-college-advisor.md` |
 | 政务数字化售前顾问 | `specialized/government-digital-presales-consultant.md` |
+| 医疗客服专家 | `specialized/healthcare-customer-service.md` |
 | 医疗健康营销合规师 | `specialized/healthcare-marketing-compliance.md` |
+| 酒店宾客服务专家 | `specialized/hospitality-guest-services.md` |
+| HR 入职管理专家 | `specialized/hr-onboarding.md` |
 | 身份图谱操作员 | `specialized/identity-graph-operator.md` |
+| 语言翻译专家 | `specialized/language-translator.md` |
+| 律所计费与工时专家 | `specialized/legal-billing-time-tracking.md` |
+| 律所客户接案专家 | `specialized/legal-client-intake.md` |
+| 法律文书审查专家 | `specialized/legal-document-review.md` |
+| 信贷经理助手 | `specialized/loan-officer-assistant.md` |
 | LSP 索引工程师 | `specialized/lsp-index-engineer.md` |
 | 提示词工程师 | `specialized/prompt-engineer.md` |
 | 招聘专家 | `specialized/recruitment-specialist.md` |
@@ -240,9 +257,12 @@
 | 会议效率专家 | `specialized/specialized-meeting-assistant.md` |
 | 模型 QA 专家 | `specialized/specialized-model-qa.md` |
 | 动态定价策略师 | `specialized/specialized-pricing-optimizer.md` |
+| 房地产经纪助手 | `specialized/real-estate-buyer-seller.md` |
+| 零售退货专家 | `specialized/retail-customer-returns.md` |
 | 企业风险评估师 | `specialized/specialized-risk-assessor.md` |
 | Salesforce 架构师 | `specialized/specialized-salesforce-architect.md` |
 | 工作流架构师 | `specialized/specialized-workflow-architect.md` |
+| 幕僚长 | `specialized/specialized-chief-of-staff.md` |
 | 留学规划顾问 | `specialized/study-abroad-advisor.md` |
 | 技术翻译专家 | `specialized/technical-translator-agent.md` |
 | ZK 管家 | `specialized/zk-steward.md` |
